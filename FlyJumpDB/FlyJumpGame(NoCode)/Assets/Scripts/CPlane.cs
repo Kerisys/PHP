@@ -10,7 +10,9 @@ public class CPlane : MonoBehaviour {
 
     public float _riseForce;
 
-    public Text _itemCountText;
+    public Text _starCountText;
+
+    public CGameManager _gameManager; // 게임 매니저
 
     void Awake()
     {
@@ -19,8 +21,9 @@ public class CPlane : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-	}
+        _starCountText = GameObject.Find("CountText").GetComponent<Text>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<CGameManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,10 +61,11 @@ public class CPlane : MonoBehaviour {
         }
     }
 
+    // 게임 종료 처리
     void GameEnd()
-    {
-        // 종료 씬으로 이동함
-        SceneManager.LoadScene("End");
+    {      
+        // 현재 별점을 게임 매니저쪽으로 전달함
+        _gameManager.GameEnd(int.Parse(_starCountText.text));
     }
 
 
@@ -71,9 +75,9 @@ public class CPlane : MonoBehaviour {
         {
             Destroy(collider.gameObject);
 
-            int score = int.Parse(_itemCountText.text);
+            int score = int.Parse(_starCountText.text);
             score++;
-            _itemCountText.text = score.ToString();
+            _starCountText.text = score.ToString();
         }
     }
 } 
