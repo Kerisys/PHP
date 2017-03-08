@@ -16,6 +16,9 @@ public class CSelectManager : MonoBehaviour {
     // 종합 별점 (코인)
     public Text _totalStarCount;
 
+    public CPurchaseManager _purchaseManager;
+    public Text _messageText;
+
     private void Awake()
     {
         _userInfo = GameObject.Find("UserInfo").GetComponent<CUserInfo>();
@@ -62,5 +65,26 @@ public class CSelectManager : MonoBehaviour {
 
         // 게임 씬으로 이동함
         SceneManager.LoadScene("Game");
+    }
+
+    public void OnPurchaseButtonClcick(int selectPlaneNum)
+    {
+        CPurchaseManager.PLANE_TYPE planeType = (CPurchaseManager.PLANE_TYPE)selectPlaneNum;
+        
+        if(planeType == CPurchaseManager.PLANE_TYPE.YELLOW)
+        {
+            _purchaseManager.PlanePurchase(planeType, CPurchaseManager.PURCHASE_TYPE.POINT, "", gameObject);
+        }
+        else
+        {
+        
+        }
+    }
+
+    public void PlanePurchaseComplete(string msg)
+    {
+        _messageText.text = msg;
+
+        SelectSceneInit();
     }
 }

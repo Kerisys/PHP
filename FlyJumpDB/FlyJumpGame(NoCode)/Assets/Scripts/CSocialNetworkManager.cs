@@ -15,6 +15,5 @@ public class CSocialNetworkManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(gameObject);	
-	}
-	
+	}	
 }
